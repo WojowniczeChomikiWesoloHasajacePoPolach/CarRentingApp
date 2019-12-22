@@ -9,21 +9,16 @@ const mongoose = require('mongoose');
 
 router.get('/me', verifyToken, async (req, res) => {
     
-        const user = await User.findById(req.userLogin._id).select('-password');
-
+    const user = await User.findById(req.userLogin._id).select('-password');
     res.send(user);
-    
-
 });
 //Rejestracja
 router.post('/register', async (req, res) => {
-    
     //Walidacja
     const { error } = validateUser(req.body);
     if (error) {
         return res.status(400).send(error.details[0].message);
     };
-    
     //Sprawdzenie czy jest w bazie dany login lub mail
     let mailTaken = await User.findOne({email: req.body.email});
     let loginTaken = await User.findOne({login: req.body.login});
