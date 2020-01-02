@@ -2,11 +2,14 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const cors = require('cors');
 const Joi = require('joi');
 
 //Importy z innych plików
 const users = require('./routes/users')
-const cars = require('./routes/cars.js');
+const cars = require('./routes/cars');
+const customers = require('./routes/customers');
 const socialAuth = require('./routes/auth.js');
 
 //Hello World na ścieżce / zapytania dla GET
@@ -19,6 +22,11 @@ const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log(`Nasluchuje portu ${port}...`);
 })
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(cors())
+app.use(bodyParser.json())
+
+
 
 // Połączenie z bazą danych ONLINE
 
@@ -35,6 +43,7 @@ mongoose.connect('mongodb://localhost/test')
 //uzycie funkcji
 
 app.use(express.json());
-app.use('/api/cars', cars);
-app.use('/api/user', users);
+app.use('/admin/cars', cars);
+app.use('/admin/user', users);
+app.use('/customer', customers);
 app.use('/auth', socialAuth);

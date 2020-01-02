@@ -1,1 +1,0 @@
-plik zrobiony, aby folder mogl zostac wyslany przez gita 

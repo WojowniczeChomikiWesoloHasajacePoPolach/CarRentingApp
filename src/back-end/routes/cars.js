@@ -1,6 +1,5 @@
 const verifyToken = require('../middleware/tokenVerify');
 const admin = require('../middleware/admin');
-const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
 const {Car, validate} = require('../models/car.js');

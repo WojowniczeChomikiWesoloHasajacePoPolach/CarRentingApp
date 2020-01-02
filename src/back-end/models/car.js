@@ -41,8 +41,13 @@ const carSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    amountOfCars: {
-        type: Number
+    registryNumber: {
+        type: String,
+        required: true
+    },
+    dailyRentalRate: {
+        type: Number,
+        required: true,
     }
 });
 const Car = mongoose.model('Car', carSchema);

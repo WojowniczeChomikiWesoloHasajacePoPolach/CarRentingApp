@@ -4,8 +4,6 @@ const router = express.Router();
 const {User, validateUser, validateLogin} = require('../models/user');
 const bcrypt = require('bcryptjs');
 const verifyToken = require('../middleware/tokenVerify');
-const mongoose = require('mongoose');
-
 
 router.get('/me', verifyToken, async (req, res) => {
     
@@ -29,6 +27,10 @@ router.post('/register', async (req, res) => {
     
     if (loginTaken) {
         return res.status(400).send('User with that login already exists.');
+    }
+    //jeżeli hasła nie są takie same to błąd
+    if (req.body.password != req.body.confirmPassword) {
+        return res.status(400).send('passwords are not the same!');
     }
 
     //Hash'owanie hasła
@@ -79,6 +81,7 @@ router.post('/login', async (req, res) => {
     }
     //wywołanie metody dla utworzenia tokenu
     const token = userLogin.generateAuthToken();
+    localStorage.setItem('currentUser', JSON.stringify({ token: token}));
     res.header('x-auth-token', token).send(`${userLogin.login} you are logged in.`);
 });
 

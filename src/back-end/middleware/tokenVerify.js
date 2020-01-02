@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 //Funkcja sprawdzająca czy użytkownik posiada odpowiednie uprawnienia
 module.exports = function (req, res, next) {
     //Sprawdzenie czy istnieje token
-    const token = req.header('x-auth-token');
+    token = req.header('x-auth-token');
     if (!token) {
         return res.status(401).send('Access denied.');
     };
