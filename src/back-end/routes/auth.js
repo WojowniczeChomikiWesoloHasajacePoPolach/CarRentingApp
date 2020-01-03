@@ -10,14 +10,14 @@ const localStrategy = require('passport-local');
 
 //auth with google
 
-passport.use(new googleStrategy({
-    // options for the google start
-    clientID: '537803304374-l4t0hm7vq1s4em4febq4nh4r8re7morv.apps.googleusercontent.com',
-    clientSecret: 'TdeU89tEmy5kdC7FgNPQ3E9i'
-}), () =>{
-    //passport callback function
-}
-);
+// passport.use(new googleStrategy({
+//     // options for the google start
+//     clientID: '537803304374-l4t0hm7vq1s4em4febq4nh4r8re7morv.apps.googleusercontent.com',
+//     clientSecret: 'TdeU89tEmy5kdC7FgNPQ3E9i'
+// }), () =>{
+//     //passport callback function
+// }
+// );
 
 router.get('/google/auth', async (req,res) => {
 

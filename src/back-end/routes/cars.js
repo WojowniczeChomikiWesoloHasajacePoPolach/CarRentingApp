@@ -36,6 +36,8 @@ router.post('/', async (req, res) => {
         height: req.body.height,
         width: req.body.width,
         length: req.body.length,
+        registryNumber: req.body.registryNumber,
+        dailyRentalRate: req.body.dailyRentalRate,
         amountOfCars: 1
     });
 
@@ -57,6 +59,8 @@ router.put('/:id',async (req, res)=>{
         height: req.body.height,
         width: req.body.width,
         length: req.body.length,
+        registryNumber: req.body.registryNumber,
+        dailyRentalRate: req.body.dailyRentalRate,
         amountOfCars: req.body.amountOfCars
        }
    },{new:true})
