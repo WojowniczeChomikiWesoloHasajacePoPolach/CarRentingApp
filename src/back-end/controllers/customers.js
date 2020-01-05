@@ -1,15 +1,21 @@
 const express = require('express');
 const router = express.Router();
-const {Customer, validateCustomer} = require('../models/customer');
+const {Customer, validateCustomer,validateLogin} = require('../models/customer');
 const bcrypt = require('bcryptjs');
 const verifyToken = require('../middleware/tokenVerify');
 
 
-router.get('/myaccount',verifyToken, async (req, res) => {
+// router.get('/myaccount',verifyToken, async (req, res) => {
+    
+//     const customer = await Customer.findById(req.userLogin._id).select('-password');
+//     res.send(customer);
+// });
+
+getAccount = async (req, res) => {
     
     const customer = await Customer.findById(req.userLogin._id).select('-password');
     res.send(customer);
-});
+};
 
 customerRegister = async (req, res) => {
 
@@ -60,4 +66,62 @@ customerRegister = async (req, res) => {
     }
 };
 
-module.exports = {customerRegister}
+customerLogin = async (req, res) => {
+    
+    const { error } = validateLogin(req.body);
+    if (error) {
+        return res.status(400).send(error.details[0].message);
+    };
+
+    let customerLogin = await Customer.findOne({login: req.body.login});
+    if (!customerLogin) {
+        return res.status(400).send('Login or password is wrong.');
+    }
+
+    let validPassword = await bcrypt.compare(req.body.password, customerLogin.password)
+    if (!validPassword) {
+        return res.status(400).send('Login or password is wrong.');
+    }
+    const token = customerLogin.generateAuthToken();
+    localStorage.setItem('currentCustomer', JSON.stringify({ token: token}));
+    res.header('x-auth-token', token).send(`${customerLogin.login} you are logged in.`);
+};
+
+customerUpdate = async (req, res) => {
+
+    const customer = await User.findById(req.params.id);
+    if (!customer) return res.status(404).send ('Customer does not exist!');
+
+    let currentPassword = req.body.currentPassword;
+    let validationPassword = await bcrypt.compare(currentPassword, customer.password)
+
+
+    if (!validationPassword) {
+        return res.status(400).send('Password is incorrect.');
+    }
+
+    let newPassword = req.body.newPassword;
+
+    const salt = await bcrypt.genSalt(10);
+    const hashPassword = await bcrypt.hash(newPassword, salt);
+
+
+    customer.set({
+        name: req.body.name,
+        password: hashPassword
+    });
+    
+
+    customer.save();
+    res.send(customer);
+};
+
+customerDelete = async (req, res) => {
+    const user = await User.findByIdAndRemove(req.params.id)
+
+    if(!user) return res.status(404).send('User does not exist!');
+    res.send(user);
+
+};
+
+module.exports = {customerRegister, customerLogin, getAccount, customerUpdate,customerDelete}

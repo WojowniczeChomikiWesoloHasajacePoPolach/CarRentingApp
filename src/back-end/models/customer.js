@@ -60,6 +60,15 @@ function validateCustomer(customer){
         }
     return Joi.validate(customer, schema);
 };
+function validateLogin(customer) {
+    const schema = {
+        login: Joi.string().min(3).max(50).required(),
+        password: Joi.string().min(8).max(255).required()
+    };
+    
+    return Joi.validate(customer, schema);
+};
 
 exports.Customer = Customer;
 exports.validateCustomer = validateCustomer;
+exports.validateLogin = validateLogin;
