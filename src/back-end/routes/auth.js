@@ -19,6 +19,7 @@ const localStrategy = require('passport-local');
 // }
 // );
 
+
 router.get('/google/auth', async (req,res) => {
 
     res.send('Logging in with google');

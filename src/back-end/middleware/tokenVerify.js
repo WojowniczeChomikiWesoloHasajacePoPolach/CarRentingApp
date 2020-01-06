@@ -7,6 +7,10 @@ module.exports = function (req, res, next) {
     if (!token) {
         return res.status(401).send('Access denied.');
     };
+    // let token = localStorage.getItem('id');
+    if (!token) {
+        return res.status(401).send('Access denied.');
+    };
 
     //Walidacja tokenu
     try {
