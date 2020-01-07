@@ -8,7 +8,7 @@ class OrderForm extends React.Component{
     state = {
         brand: 'Brand',
         model: 'Model',
-        age: 'Age',
+        power: 'Power',
         motor: 'Motor'
     }
  
@@ -25,8 +25,8 @@ class OrderForm extends React.Component{
                         <Select content={this.state.model}/>
                     </div>
                     <div>
-                        <p>Age:</p>
-                        <Select content={this.state.age}/>
+                        <p>Power:</p>
+                        <Select content={this.state.power}/>
                     </div>
                     <div>
                         <p>Motor:</p>
