@@ -3,11 +3,7 @@ const router = express.Router();
 const passport = require('passport');
 var GoogleStrategy = require('passport-google-oauth20').Strategy;
 
-
-
-
 //auth with google
-
 
 passport.use(new GoogleStrategy({
     clientID: '537803304374-l4t0hm7vq1s4em4febq4nh4r8re7morv.apps.googleusercontent.com',

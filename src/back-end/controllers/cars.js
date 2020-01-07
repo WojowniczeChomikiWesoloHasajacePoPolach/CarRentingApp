@@ -1,23 +1,32 @@
+const verifyToken = require('../middleware/tokenVerify');
+const admin = require('../middleware/admin');
 const express = require('express');
-const carsController = require('../controllers/cars')
 const router = express.Router();
-
-router.get('/', carsController.getCars);
-router.get('/:id', carsController.getCar);
-router.post('/', carsController.addCar);
-router.put('/:id', carsController.updateCar);
-router.delete('/:id', carsController.deleteCar);
+const {Car, validate} = require('../models/car.js');
 
 
-
-// te dwie do przeniesienia do controllers/cars.js , powinny zastapić tamte
-router.post('/', async (req, res) => {
+getCars = async (req, res) => {
+    const cars = await Car.find().sort('brand');
+    res.send(cars);
+}
+getCar = async (req, res) => {
+    const car = await Car.findById(req.params.id);
+    if(!car) return res.status(404).send('The car with the given ID was not found.');
+    res.send(car);
+}
+addCar = async (req, res) => {
 
     const { error } = validate(req.body);
     if(error) return res.status(400).send(error.details[0].message);
+
     //sprawdzenie czy dane auto istnieje w bazie danych
-    
+
     let car = await Car.findOne({model: req.body.model});
+
+    // jeśli auto znajduje się w bazie danych to powiększa ich ilość
+
+
+   //jeśli nie znajduje się w bazie danych to doda do bazy i przypisze ilość = 1
     car = new Car({
         brand: req.body.brand,
         model: req.body.model,
@@ -27,15 +36,14 @@ router.post('/', async (req, res) => {
         height: req.body.height,
         width: req.body.width,
         length: req.body.length,
-        registryNumber: req.body.registryNumber,
-        dailyRentalRate: req.body.dailyRentalRate,
+        amountOfCars: 1
     });
 
     await car.save();
     res.send(car);
-});
+};
 
-router.put('/:id',async (req, res)=>{
+updateCar = async (req, res) => {
     const { error } = validate(req.body);
     if(error) return res.status(400).send(error.details[0].message);
     
@@ -49,13 +57,22 @@ router.put('/:id',async (req, res)=>{
         height: req.body.height,
         width: req.body.width,
         length: req.body.length,
-        registryNumber: req.body.registryNumber,
-        dailyRentalRate: req.body.dailyRentalRate,
+        amountOfCars: req.body.amountOfCars
        }
    },{new:true})
 
     if(!car) return res.status(404).send('The car with the given ID was not found.');
 
     res.send(car);
-});
-module.exports = router;
+};
+
+deleteCar = async (req,res)=>{
+    const car = await Car.findByIdAndRemove(req.params.id);
+
+    if(!car) return res.status(404).send('The car with the given ID was not found.');
+
+    res.send(car);
+};
+
+
+module.exports = {getCars, getCar, addCar, updateCar, deleteCar}; 

@@ -48,6 +48,10 @@ const carSchema = new mongoose.Schema({
     dailyRentalRate: {
         type: Number,
         required: true,
+    },
+    isRent: {
+        type: Boolean,
+        default: false
     }
 });
 const Car = mongoose.model('Car', carSchema);
@@ -64,7 +68,9 @@ function validateCar(car){
         height: Joi.string().required(),
         width: Joi.string().required(),
         length: Joi.string().required(),
-        amountOfCars: Joi.number()
+        registryNumber: Joi.string().required(),
+        dailyRentalRate: Joi.number().required(),
+
     };
 
     return Joi.validate(car, schema)
