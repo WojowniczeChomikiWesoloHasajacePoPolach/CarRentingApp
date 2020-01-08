@@ -1,5 +1,5 @@
 # CarRentingApp
-It is an app created with Node.js, React and MongoDB.
+It is an app created with Node.js, React and MongoDB. This app serves for renting cars. You can simply choose a car and rent it.
 
 ## Table of contents
 * [Introduction](#introduction)

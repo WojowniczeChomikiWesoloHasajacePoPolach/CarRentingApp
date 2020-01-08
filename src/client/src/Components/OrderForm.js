@@ -1,8 +1,9 @@
 import React from 'react';
 import './App.css';
-import Select from './Select';
+import Option from './Option';
 import { getCars } from '../actions';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 
 
@@ -20,21 +21,34 @@ class OrderForm extends React.Component{
         console.log(this.props.car)
     }
 
-    // test(){
-    //     return this.props.car.map( car => {
-    //         let rented = "No";
-    //         if (car.isRent === true) { rented = "Yes"};
-    //         return (
-    //             <tr>
-    //                 <td data-label="Car">{car.brand} {car.model}</td>
-    //                 <td data-label="Registry Number">{car.registryNumber}</td>
-    //                 <td data-label="Rented">{rented}</td>
-    //                 <td data-label=''><Link to={`/admin/cars/${car._id}`} > <button className="ui button">EDIT</button></Link></td>
-
-    //               </tr>)
-    // });
-    // }
-    
+    getBrand(){
+        return this.props.car.map( car => {
+            return (
+                    <Option content={car.brand}/>
+                  )
+    });
+    }
+    getModel(){
+        return this.props.car.map( car => {
+            return (
+                    <Option content={car.model}/>
+                  )
+    });
+    }
+    getMotor(){
+        return this.props.car.map( car => {
+            return (
+                    <Option content={car.motor}/>
+                  )
+    });
+    }
+    getPower(){
+        return this.props.car.map( car => {
+            return (
+                    <Option content={car.power}/>
+                  )
+    });
+    }
 
     render(){
         return(
@@ -42,19 +56,27 @@ class OrderForm extends React.Component{
                 <h2>Find your car!</h2>
                     <div>
                         <p>Brand:</p>
-                        <Select content={this.state.brand}/>
+                        <select>
+                            {this.getBrand()}
+                        </select>
                     </div>
                     <div>
                         <p>Model:</p>
-                        <Select content={this.state.model}/>
+                        <select>
+                            {this.getModel()}
+                        </select>
                     </div>
                     <div>
                         <p>Power:</p>
-                        <Select content={this.state.power}/>
+                        <select>
+                            {this.getPower()}
+                        </select>
                     </div>
                     <div>
                         <p>Motor:</p>
-                        <Select content={this.state.motor}/>
+                        <select>
+                            {this.getMotor()}
+                        </select>
                     </div>
                 <div><button>ORDER!</button></div>
             </form>
