@@ -1,24 +1,36 @@
 import React from 'react';
 import './App.css';
 import Select from './Select';
+import { connect } from 'react-redux'
+import { getCars } from '../actions';
 
 
 
 class OrderForm extends React.Component{ 
-    state = {
-        brand: 'Brand',
-        model: 'Model',
-        power: 'Power',
-        motor: 'Motor'
+
+    constructor(props) {
+        super(props);
+         this.state = {
+         brand: '',
+         model: '',
+         power: '',
+         motor: ''}
     }
- 
+    componentDidMount() {
+        this.props.getCars();
+        console.log(this.props.car)
+
+    }
+
+    
+
     render(){
         return(
             <form className='order-page-form'>
                 <h2>Find your car!</h2>
                     <div>
                         <p>Brand:</p>
-                        <Select content={this.state.brand}/>
+                        <Select content={this.state.car.brand}/>
                     </div>
                     <div>
                         <p>Model:</p>
@@ -35,8 +47,13 @@ class OrderForm extends React.Component{
                 <div><button>ORDER!</button></div>
             </form>
         );
-    }
+    };
 }
 
-
-export default OrderForm;
+const mapStateToProps = state => {
+    return { car: state.car };
+};
+export default connect(
+    mapStateToProps,
+    { getCars }
+)(OrderForm);

@@ -35,12 +35,15 @@ app.use(bodyParser.json())
 mongoose.connect('mongodb+srv://dostepdobazy:chomikiwitka@chomikiwitka-a2ubx.gcp.mongodb.net/test?retryWrites=true&w=majority')
   .then(() => console.log('Connected to MongoDB...'))
   .catch(err => console.error('Could not connect to MongoDB...'));
+<<<<<<< HEAD
 
 // Połączenie z lokalną bazą danych
 
 // mongoose.connect('mongodb://localhost/test')
 //   .then(() => console.log('Connected to MongoDB...'))
 //   .catch(err => console.error('Could not connect to MongoDB...'));
+=======
+>>>>>>> upstream/master
 
 //uzycie funkcji
 
