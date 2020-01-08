@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 var GoogleStrategy = require('passport-google-oauth20').Strategy;
+var FacebookStrategy = require('passport-facebook').Strategy;
 
 //auth with google
 
@@ -17,11 +18,31 @@ passport.use(new GoogleStrategy({
   }
 ));
 
-
 router.get('/google', passport.authenticate('google', {
     scope: ['profile']
 }));
 
+//auth with Fb
+passport.use(new FacebookStrategy({
+  clientID: '1061924937473208',
+  clientSecret: 'b74211242d2119f20cfe218377055d22',
+  callbackURL: 'http://localhost:8000/'
+  },
+
+  function (accessToken, refreshToken, profile, done) {
+    console.log(profile);
+    console.log(accessToken);
+    console.log(refreshToken);
+    User.findOrCreate({facebookId: profile.id}, function(err, user) {
+      if (err) { return done(err); }
+      done(null, user);
+    });
+  }
+));
+
+router.get('/facebook', passport.authenticate('facebook', {
+  scope: 'email'
+}));
 
 //logout
 
