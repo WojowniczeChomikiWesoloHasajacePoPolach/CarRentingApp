@@ -35,7 +35,10 @@ const userSchema = new mongoose.Schema({
         minlength: 8,
         maxlength: 1024,
         },
-    isAdmin: Boolean
+    isAdmin: {
+        type: Boolean,
+        default: false
+    }
 });
 
 // utworzenie metody do tworzenia tokenu

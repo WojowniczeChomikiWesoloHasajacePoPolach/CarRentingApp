@@ -1,14 +1,17 @@
 const axios = require('axios');
 
-const rentingapp = axios.create({
+export default axios.create({
     baseURL:'http://localhost:3000'
-})
+});
 
-export const customerRegister = payload => rentingapp.post(`/customer/register`, payload);
+// export const customerRegister = payload => rentingapp.post(`/customer/register`, payload);
+// export const adminLogin = payload => rentingapp.post(`/admin/user/login`, payload);
 
-const apis = {
-    customerRegister
-};
 
-export default apis;
+// const apis = {
+//     customerRegister,
+//     adminLogin
+// };
+
+// export default apis;
 
