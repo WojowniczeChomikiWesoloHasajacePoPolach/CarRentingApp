@@ -5,7 +5,7 @@ class Footer extends React.Component {
         return(
             <footer>
                 <p>DON'T EVEN TRY TO COPY MY RIGHT!<br />ALL RIGHT RESERVED!</p>
-                <p>Sorry, here should be our adress.<br />We don't have one.<br />We live on a street because we cannot earn money.</p>
+                <p>Sorry, here should be our address.<br />We don't have one.<br />We live on a street because we cannot earn money.</p>
             </footer>
         )
     }

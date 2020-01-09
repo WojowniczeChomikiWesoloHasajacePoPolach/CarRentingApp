@@ -1,42 +1,93 @@
 import React from 'react';
 import './App.css';
-import Select from './Select';
+import Option from './Option';
+import { getCars } from '../actions';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 
 
 class OrderForm extends React.Component{ 
-    state = {
-        brand: 'Brand',
-        model: 'Model',
-        age: 'Age',
-        motor: 'Motor'
+    constructor(props) {
+        super(props);
+         this.state = {
+         brand: '',
+         model: '',
+         power: '',
+         motor: ''}
     }
- 
+    componentDidMount() {
+        this.props.getCars();
+        console.log(this.props.car)
+    }
+
+    getBrand(){
+        return this.props.car.map( car => {
+            return (
+                    <Option content={car.brand}/>
+                  )
+    });
+    }
+    getModel(){
+        return this.props.car.map( car => {
+            return (
+                    <Option content={car.model}/>
+                  )
+    });
+    }
+    getMotor(){
+        return this.props.car.map( car => {
+            return (
+                    <Option content={car.motor}/>
+                  )
+    });
+    }
+    getPower(){
+        return this.props.car.map( car => {
+            return (
+                    <Option content={car.power}/>
+                  )
+    });
+    }
+
     render(){
         return(
             <form className='order-page-form'>
                 <h2>Find your car!</h2>
                     <div>
                         <p>Brand:</p>
-                        <Select content={this.state.brand}/>
+                        <select>
+                            {this.getBrand()}
+                        </select>
                     </div>
                     <div>
                         <p>Model:</p>
-                        <Select content={this.state.model}/>
+                        <select>
+                            {this.getModel()}
+                        </select>
                     </div>
                     <div>
-                        <p>Age:</p>
-                        <Select content={this.state.age}/>
+                        <p>Power:</p>
+                        <select>
+                            {this.getPower()}
+                        </select>
                     </div>
                     <div>
                         <p>Motor:</p>
-                        <Select content={this.state.motor}/>
+                        <select>
+                            {this.getMotor()}
+                        </select>
                     </div>
                 <div><button>ORDER!</button></div>
             </form>
         );
-    }
+    };
 }
 
-
-export default OrderForm;
+const mapStateToProps = state => {
+    return { car: state.car };
+};
+export default connect(
+    mapStateToProps,
+    { getCars }
+)(OrderForm);

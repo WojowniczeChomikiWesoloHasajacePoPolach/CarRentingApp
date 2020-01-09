@@ -8,7 +8,6 @@ class Search extends React.Component {
             <div className='search-details'>
                 <label>Brand:</label><input type='text'/>
                 <label>Model:</label><input type='text'/>
-                <label>Age:</label><input type='number'/>
                 <label>Motor:</label><input type='text'/>
             </div>
             <input className='button' type='submit' value='Search'/>

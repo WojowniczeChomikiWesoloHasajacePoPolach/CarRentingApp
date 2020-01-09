@@ -3,13 +3,11 @@ import './App.css';
 
 
 
-function Select({content}){
+function Option({content}){
     return(
-        <select>
             <option>{content}</option>
-        </select>
 );
 };
 
 
-export default Select;
+export default Option;
