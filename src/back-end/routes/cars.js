@@ -29,10 +29,6 @@ router.post('/', async (req, res) => {
         length: req.body.length,
         registryNumber: req.body.registryNumber,
         dailyRentalRate: req.body.dailyRentalRate,
-<<<<<<< HEAD
-        amountOfCars: 1
-=======
->>>>>>> upstream/master
     });
 
     await car.save();
