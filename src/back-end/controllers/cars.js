@@ -31,16 +31,15 @@ addCar = async (req, res) => {
         brand: req.body.brand,
         model: req.body.model,
         motor: req.body.motor,
-        track: req.body.track,
+        mileage: req.body.mileage,
         power: req.body.power,
-        height: req.body.height,
-        width: req.body.width,
-        length: req.body.length,
-        amountOfCars: 1
+        dailyRentalRate: req.body.dailyRentalRate,
+        registryNumber: req.body.registryNumber
     });
 
     await car.save();
-    res.send(car);
+    res.send({car,
+        message: 'Car succesfully added!'});
 };
 
 updateCar = async (req, res) => {
@@ -52,18 +51,18 @@ updateCar = async (req, res) => {
         brand: req.body.brand,
         model: req.body.model,
         motor: req.body.motor,
-        track: req.body.track,
+        mileage: req.body.mileage,
         power: req.body.power,
-        height: req.body.height,
-        width: req.body.width,
-        length: req.body.length,
-        amountOfCars: req.body.amountOfCars
+        dailyRentalRate: req.body.dailyRentalRate,
+        registryNumber: req.body.registryNumber
        }
    },{new:true})
 
     if(!car) return res.status(404).send('The car with the given ID was not found.');
 
-    res.send(car);
+    res.send(
+        {car, message: `Car with ID ${car._id} has been updated succesfully `}
+        )
 };
 
 deleteCar = async (req,res)=>{
@@ -71,7 +70,9 @@ deleteCar = async (req,res)=>{
 
     if(!car) return res.status(404).send('The car with the given ID was not found.');
 
-    res.send(car);
+    res.send({
+        car,
+        message: `Car with ID ${car._id} has been deleted succesfully `});
 };
 
 

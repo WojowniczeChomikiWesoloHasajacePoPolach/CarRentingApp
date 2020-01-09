@@ -21,23 +21,11 @@ const carSchema = new mongoose.Schema({
         minlength: 1,
         maxlength: 10
     },
-    track: {
+    mileage: {
         type: Number,
         required: true
     },
     power: {
-        type: String,
-        required: true
-    },
-    height:{
-        type: String,
-        required: true
-    },
-    width:{
-        type: String,
-        required: true
-    },
-    length:{
         type: String,
         required: true
     },
@@ -63,11 +51,8 @@ function validateCar(car){
         brand: Joi.string().min(3).max(50).required(),
         model: Joi.string().min(3).max(50).required(),
         motor: Joi.string().min(1).max(10).required(),
-        track: Joi.number().required(),
+        mileage: Joi.number().required(),
         power: Joi.string().required(),
-        height: Joi.string().required(),
-        width: Joi.string().required(),
-        length: Joi.string().required(),
         registryNumber: Joi.string().required(),
         dailyRentalRate: Joi.number().required(),
 

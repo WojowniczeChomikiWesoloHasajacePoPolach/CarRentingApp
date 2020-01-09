@@ -19,13 +19,13 @@ getUsers = async (req, res) => {
     res.send(users);
 }
 
-myProfile = async (req, res) => {
+getUser = async (req, res) => {
     const user = await User.findById(req.params.id).select('-password');
 
     res.send(user);
 }
 //Rejestracja
-adminRegister = async (req, res) => {
+addUser = async (req, res) => {
     
     //Walidacja
     const { error } = validateUser(req.body);
@@ -98,7 +98,7 @@ adminLogin = async (req, res) => {
     //wywołanie metody dla utworzenia tokenu
     const token = userLogin.generateAuthToken();
     res.header('x-auth-token', token).send(
-        { 
+        {   message: `${userLogin.login} login succesfully!`,
             id: userLogin._id,
             login: userLogin.login,
             name: userLogin.name,
@@ -109,7 +109,7 @@ adminLogin = async (req, res) => {
 };
 
 // aktualizacja danych użytkownika, 
-router.put('/:id', verifyToken, async (req, res) => {
+adminUpdate = async (req, res) => {
 
     const user = await User.findById(req.params.id);
     if (!user) return res.status(404).send ('User does not exist!');
@@ -130,21 +130,25 @@ router.put('/:id', verifyToken, async (req, res) => {
 
     user.set({
         name: req.body.name,
+        login: req.body.login,
+        email: req.body.email,
         password: hashPassword
     });
     
 
     user.save();
-    res.send(user);
-});
+    res.send({user,
+        message: "User updated"});
+};
 
-router.delete('/:id', verifyToken, async (req, res) => {
+deleteUser = async (req, res) => {
     const user = await User.findByIdAndRemove(req.params.id)
 
     if(!user) return res.status(404).send('User does not exist!');
-    res.send(user);
+    res.send({user, 
+        message: `User with id: ${user._id} has been succesfully deleted!`});
 
-});
+};
 
 //Eksportowanie
-module.exports = {adminLogin, adminRegister, myProfile, getUsers};
+module.exports = {adminLogin, addUser, getUser, getUsers, adminUpdate, deleteUser};

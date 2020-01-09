@@ -5,13 +5,13 @@ export default (
             case 'GET_CARS':
                 return action.payload;
             case 'GET_CAR':
-                return action.payload;
+                return state;
                 case 'ADD_CAR':
                 return action.payload;
-                case 'UPDATE_CARS':
-                return action.payload;
-                case 'DELETE_CARS':
-                return action.payload;
+                case 'UPDATE_CAR':
+                return state;
+                case 'DELETE_CAR':
+                return state;
                 default: 
                 return state;
         }

@@ -9,6 +9,10 @@ import  Users  from './Users';
 import  Customers from './Customers';
 import Cars from './Cars';
 import CarUpdate from './CarUpdate';
+import UserUpdate from './AddUser';
+import AdminProfile from './AdminProfile';
+import AddUser from './AddUser';
+import DeleteUser from './DeleteUser';
 import Orders from './Orders';
 import { adminProfile, adminLogOut } from '../actions';
 import AdminLoginPage from './AdminLoginPage';
@@ -75,6 +79,7 @@ class AdminHomePage extends React.Component {
                     <Link to="/admin/orders"><a className="item active">
                         Orders
                     </a></Link>
+                    <Link to="/admin/my-account"><button className="ui button">EDIT MY ACCOUNT</button></Link>
                     <button className="ui button" onClick={this.handleLogOut}>LOG OUT</button>
                 </div>
                 </div>
@@ -86,6 +91,11 @@ class AdminHomePage extends React.Component {
                     <Route path="/admin/users" exact component={Users}/>
                     <Route path="/admin/customers" exact component={Customers}/>
                     <Route path="/admin/cars/:_id" exact component={CarUpdate}/>
+                    <Route path="/admin/users/:_id" exact component={UserUpdate}/>
+                    <Route path="/admin/users/delete/:_id" exact component={DeleteUser}/>
+                    <Route path="/admin/my-account" exact component={AdminProfile}/>
+                    <Route path="/admin/users/new" exact component={AddUser}/>
+
                 </Switch>
                      
                           </div>
