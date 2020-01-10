@@ -17,10 +17,6 @@ class AdminProfile extends React.Component {
         this.setState({email: this.props.user.email});
         this.setState({name: this.props.user.name});
     }
-    isLogged = () => {
-        let id = localStorage.getItem('id');
-        if(id) { return true} else {return false};
-    };
 
     handleChange = event => {
         switch (event.target.name) {
@@ -84,25 +80,6 @@ class AdminProfile extends React.Component {
                         required></input>
                     </div>
                     <div className="field">
-                        {/* <label>Admin</label>
-                        <input
-                        type="radio"
-                        name="isAdmin"
-                        placeholder=""
-                        value='YES'
-                        onChange={this.handleChange}>
-                        {this.state.isAdmin ? 'checked' : ''}
-                        </input>
-                        <input
-                        type="radio"
-                        name="isAdmin"
-                        placeholder=""
-                        value='NO'
-                        onChange={this.handleChange}>
-                        {this.state.isAdmin ? '' : 'checked'}
-                        </input> */}
-                    </div>
-                    <div className="field">
                         <label>Current Password</label>
                         <input
                         type="password"
@@ -122,7 +99,9 @@ class AdminProfile extends React.Component {
                 </form>
             </div>
         )
-        return <div>{this.state.isUpdated ? <Redirect push to="/admin/home"/> : updateForm }</div>
+        return <div>
+            {/* {this.props.user.login ? '' : <Redirect push to="/admin/home"/> } */}
+            {this.state.isUpdated ? <Redirect push to="/admin/home"/> : updateForm }</div>
 
     }
 }

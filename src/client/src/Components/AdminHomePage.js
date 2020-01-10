@@ -3,99 +3,63 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { BrowserRouter as Router, Route,  Switch} from 'react-router-dom';
-import { getCars } from '../actions';
-import {getCar} from '../actions';
-import  Users  from './Users';
-import  Customers from './Customers';
+import Users  from './Users';
+import Customers from './Customers';
 import Cars from './Cars';
 import CarUpdate from './CarUpdate';
 import UserUpdate from './AddUser';
 import AdminProfile from './AdminProfile';
 import AddUser from './AddUser';
 import DeleteUser from './DeleteUser';
-import Orders from './Orders';
-import { adminProfile, adminLogOut } from '../actions';
-import AdminLoginPage from './AdminLoginPage';
+import CustomerDetails from './CustomerDetails';
+import { adminLogOut } from '../actions';
 
 
 
 class AdminHomePage extends React.Component {
     
     
-
-    
-    // handleSubmit = async e => {
-    //     e.preventDefault();
-    //     // const { id, brand, model, motor } = this.state
-    //     let id = this.props.car._id
-    //     console.log(id);
-    //     this.props.getCar(id);
-
-    // }
-    // componentDidMount() {
-    //     let id = localStorage.getItem('id');
-    //     this.props.adminProfile(id);
-    //     console.log(id);
-    //     console.log(this.props.admin.login)
-    // }
-    // componentDidUpdate() {
-    //     let id = localStorage.getItem('id');
-    //     this.props.adminProfile(id);
-    //     console.log(id);
-    //     console.log(this.props.admin.login)
-    // }
     handleLogOut = () => {
-
         this.props.adminLogOut();
-
     }
-    isLogged = () => {
-        let id = localStorage.getItem('id');
-        console.log(id)
-        if(id) { return true} else {return false};
-    };
     
 
     
-    render() {
+    render() {        
 
-        // const isLogged = this.props.admin.login;
-        
-
-        const logged = (
+        const renderSite = (
             <Router>
                 <div className="ui grid">
                 <div className="four wide column">
                 <div className="ui vertical fluid tabular menu">
-                    <Link to="/admin/cars"><a className="item">
+                    <Link to="/admin/cars"><div className="item">
                         Cars
-                    </a></Link>
-                    <Link to="/admin/users"><a className="item">
+                    </div></Link>
+                    <Link to="/admin/users"><div className="item">
                         Users
-                    </a></Link>
-                    <Link to="/admin/customers"><a className="item">
+                    </div></Link>
+                    <Link to="/admin/customers"><div className="item">
                         Customers
-                    </a></Link>
-                    <Link to="/admin/orders"><a className="item active">
+                    </div></Link>
+                    <Link to="/admin/orders"><div className="item active">
                         Orders
-                    </a></Link>
+                    </div></Link>
                     <Link to="/admin/my-account"><button className="ui button">EDIT MY ACCOUNT</button></Link>
                     <button className="ui button" onClick={this.handleLogOut}>LOG OUT</button>
                 </div>
                 </div>
             <div className="twelve wide stretched column">
                 <div className="ui segment">
-                {/* <div className="ui relaxed divided list">{this.renderTable()}</div> */}
                 <Switch>
                     <Route path="/admin/cars" exact component={Cars}/>
                     <Route path="/admin/users" exact component={Users}/>
                     <Route path="/admin/customers" exact component={Customers}/>
+                    <Route path="/admin/customers/:_id" exact component={CustomerDetails}/>
                     <Route path="/admin/cars/:_id" exact component={CarUpdate}/>
                     <Route path="/admin/users/:_id" exact component={UserUpdate}/>
                     <Route path="/admin/users/delete/:_id" exact component={DeleteUser}/>
                     <Route path="/admin/my-account" exact component={AdminProfile}/>
                     <Route path="/admin/users/new" exact component={AddUser}/>
-
                 </Switch>
                      
                           </div>
@@ -107,7 +71,7 @@ class AdminHomePage extends React.Component {
 
         );
         return (
-            <div>{ this.props.admin.login ? logged : <Redirect push to="/admin"/>}</div>
+            <div>{ this.props.admin.login ? renderSite : <Redirect push to="/admin"/>}</div>
         )
     }
 }

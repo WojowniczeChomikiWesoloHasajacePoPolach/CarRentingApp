@@ -35,7 +35,6 @@ componentDidMount = async () => {
      }
     }
     componentWillUnmount = () => {
-        console.log("komponent zniknal")
         this.props.car._id = '';
         }
 

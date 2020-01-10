@@ -64,3 +64,29 @@ export const deleteCar = id => async dispatch => {
     alert(response.data.message);
     dispatch({type: 'DELETE_CAR', payload: response.data});
 };
+export const getCustomer = id => async dispatch => {
+    let response = await apis.get('customer/'+ id);
+    dispatch({type: 'GET_CUSTOMER', payload: response.data});
+};
+export const getCustomers = () => async dispatch => {
+    let response = await apis.get('customer/');
+    dispatch({type: 'GET_CUSTOMERS', payload: response.data});
+};
+
+export const customerRegister = (login, email, name, dateOfBirth, driverLicenseNumber, password, confirmPassword) => async dispatch => {
+    let response = await apis.post('customer/register', {login, email, name, dateOfBirth, driverLicenseNumber, password, confirmPassword});
+    alert(response.data.message);
+    localStorage.setItem('customer_id', response.data._id);
+    dispatch({type: 'CUSTOMER_REGISTER', payload: response.data });
+};
+export const customerLogin = (login, password) => async dispatch => {
+    let response = await apis.post('customer/login', {login, password});
+    alert(response.data.message);
+    localStorage.setItem('customer_id', response.data._id);
+    dispatch({type: 'CUSTOMER_LOGIN', payload: response.data });
+};
+
+export const customerLogOut = () => async dispatch => {
+    localStorage.removeItem('customer_id');
+    dispatch({type: 'CUSTOMER_LOGOUT'})
+};

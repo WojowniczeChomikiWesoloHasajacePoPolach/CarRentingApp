@@ -17,16 +17,6 @@ class AddUser extends React.Component {
             isAdded: false
         }
     }
-// componentDidMount = async () => {
-//         if (this.props.match.params) {
-//         await this.props.getUser(this.props.match.params._id)
-//         // this.setState({_id: this.props.user._id, login: this.props.user.login, email: this.props.user.email, name: this.props.user.name})
-//         this.setState({_id: this.props.user._id});
-//         this.setState({login: this.props.user.login});
-//         this.setState({email: this.props.user.email});
-//         this.setState({name: this.props.user.name});
-//         }
-//     }
 
     handleChange = event => {
         switch (event.target.name) {
@@ -53,9 +43,7 @@ class AddUser extends React.Component {
     handleSubmit = async event => {
         event.preventDefault();
         const {login, name, email, password, confirmPassword} = this.state;
-        if(login === ''|| name === '' || email === '' || password === '' || confirmPassword === '') {console.log("every must be fill")}
-        let response = await this.props.addUser(login, name, email, password, confirmPassword);
-        console.log(response)
+        await this.props.addUser(login, name, email, password, confirmPassword);
         this.setState({isAdded: true});
 
     }
@@ -139,7 +127,7 @@ class AddUser extends React.Component {
     }
 }
 
-const mapStateToProps = (state, props) => {
+const mapStateToProps = (state) => {
     return { user: state.user };
 
 };

@@ -4,6 +4,8 @@ import carReducer from './carReducer';
 import fetchUsers from './fetchUsers';
 import fetchCar from './fetchCar';
 import fetchUser from './fetchUser';
+import fetchCustomers from './fetchCustomers';
+import getCustomer from './getCustomer';
 
 
 export default combineReducers({
@@ -11,5 +13,7 @@ export default combineReducers({
     cars: carReducer,
     users: fetchUsers,
     user: fetchUser,
-    car: fetchCar
+    car: fetchCar,
+    customers: fetchCustomers,
+    customer: getCustomer
 });
