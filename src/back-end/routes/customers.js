@@ -10,7 +10,7 @@ router.post('/login', customerController.customerLogin);
 
 router.get('/myaccount',verifyToken, customerController.getAccount);
 
-router.put('/myaccount/update',verifyToken, customerController.customerUpdate);
+router.put('/myaccount/update/:id',verifyToken, customerController.customerUpdate);
 
 router.delete('/myaccount/delete',verifyToken,customerController.customerDelete);
 

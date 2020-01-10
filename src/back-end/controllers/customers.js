@@ -56,7 +56,7 @@ customerRegister = async (req, res) => {
         const token = newCustomer.generateAuthToken();
     
         res.header('x-auth-token', token).send({
-                message: 'User created',
+                message: 'Customer created',
                 login: newCustomer.login,
                 email: newCustomer.email,
                 _id: newCustomer._id
@@ -83,13 +83,13 @@ customerLogin = async (req, res) => {
         return res.status(400).send('Login or password is wrong.');
     }
     const token = customerLogin.generateAuthToken();
-    localStorage.setItem('currentCustomer', JSON.stringify({ token: token}));
+    // localStorage.setItem('currentCustomer', JSON.stringify({ token: token}));
     res.header('x-auth-token', token).send(`${customerLogin.login} you are logged in.`);
 };
 
 customerUpdate = async (req, res) => {
 
-    const customer = await User.findById(req.params.id);
+    const customer = await Customer.findById(req.params.id);
     if (!customer) return res.status(404).send ('Customer does not exist!');
 
     let currentPassword = req.body.currentPassword;

@@ -70,7 +70,6 @@ function validateCar(car){
         length: Joi.string().required(),
         registryNumber: Joi.string().required(),
         dailyRentalRate: Joi.number().required(),
-
     };
 
     return Joi.validate(car, schema)
