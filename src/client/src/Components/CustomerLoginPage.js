@@ -65,7 +65,7 @@ class CustomerLoginPage extends React.Component {
         )
 
         return (
-            <div>{this.state.isLogin ? <Redirect push to="/"/> : this.renderForm} </div>
+            <div>{this.state.isLogin ? <Redirect push to="/"/> : renderForm} </div>
             )
     }
 }
