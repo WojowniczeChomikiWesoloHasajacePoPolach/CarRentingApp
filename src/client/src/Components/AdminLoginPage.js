@@ -1,6 +1,4 @@
 import React from 'react';
-import Link from 'react-router-dom';
-import rentingapp from '../apis';
 import { connect } from 'react-redux';
 import { adminLogin } from '../actions';
 import { Redirect } from 'react-router-dom';
@@ -33,11 +31,6 @@ class AdminLoginPage extends React.Component {
             default:
                 break;
         }
-    };
-    isLogged = () => {
-        let id = localStorage.getItem('id');
-        console.log('id' + id)
-        if(id) { return true} else {return false};
     };
     
     
@@ -74,7 +67,7 @@ class AdminLoginPage extends React.Component {
             </div>
         )
         return (
-            <div> {this.props.admin.login === '' ? mustLogin : <Redirect push to="/admin/home" /> }
+            <div> {this.props.admin.login ? <Redirect push to="/admin/home" /> : mustLogin }
             </div>
             
         );

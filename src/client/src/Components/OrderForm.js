@@ -18,32 +18,31 @@ class OrderForm extends React.Component{
     }
     componentDidMount() {
         this.props.getCars();
-        console.log(this.props.car)
     }
 
     getBrand(){
-        return this.props.car.map( car => {
+        return this.props.cars.map( car => {
             return (
                     <Option content={car.brand}/>
                   )
     });
     }
     getModel(){
-        return this.props.car.map( car => {
+        return this.props.cars.map( car => {
             return (
                     <Option content={car.model}/>
                   )
     });
     }
     getMotor(){
-        return this.props.car.map( car => {
+        return this.props.cars.map( car => {
             return (
                     <Option content={car.motor}/>
                   )
     });
     }
     getPower(){
-        return this.props.car.map( car => {
+        return this.props.cars.map( car => {
             return (
                     <Option content={car.power}/>
                   )
@@ -85,7 +84,7 @@ class OrderForm extends React.Component{
 }
 
 const mapStateToProps = state => {
-    return { car: state.car };
+    return { cars: state.cars };
 };
 export default connect(
     mapStateToProps,

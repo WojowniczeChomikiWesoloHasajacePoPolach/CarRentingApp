@@ -5,17 +5,16 @@ const bcrypt = require('bcryptjs');
 const verifyToken = require('../middleware/tokenVerify');
 
 
-// router.get('/myaccount',verifyToken, async (req, res) => {
-    
-//     const customer = await Customer.findById(req.userLogin._id).select('-password');
-//     res.send(customer);
-// });
-
 getAccount = async (req, res) => {
     
     const customer = await Customer.findById(req.userLogin._id).select('-password');
     res.send(customer);
 };
+
+getCustomers = async (req, res) => {
+    const customers = await Customer.find().sort('login');
+    res.send(customers);
+}
 
 customerRegister = async (req, res) => {
 
@@ -82,9 +81,13 @@ customerLogin = async (req, res) => {
     if (!validPassword) {
         return res.status(400).send('Login or password is wrong.');
     }
-    const token = customerLogin.generateAuthToken();
-    // localStorage.setItem('currentCustomer', JSON.stringify({ token: token}));
-    res.header('x-auth-token', token).send(`${customerLogin.login} you are logged in.`);
+    const token = customerLogin.generateAuthToken(
+    res.header('x-auth-token', token).send({
+        _id:customerLogin._id,
+        login: customerLogin.login,
+        email: customerLogin.email,
+        name: customerLogin.name,
+        message:`${customerLogin.login} you are logged in.`})
 };
 
 customerUpdate = async (req, res) => {
@@ -124,4 +127,4 @@ customerDelete = async (req, res) => {
 
 };
 
-module.exports = {customerRegister, customerLogin, getAccount, customerUpdate,customerDelete}
+module.exports = {customerRegister, customerLogin, getAccount, customerUpdate,customerDelete, getCustomers}

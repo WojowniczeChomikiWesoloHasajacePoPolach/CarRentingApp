@@ -5,13 +5,11 @@ const verifyToken = require('../middleware/tokenVerify');
 
 
 router.post('/register', customerController.customerRegister);
-
 router.post('/login', customerController.customerLogin);
+router.get('/:id', customerController.getAccount);
+router.get('/', customerController.getCustomers);
+router.put('/:id', customerController.customerUpdate);
+router.delete('/:id',customerController.customerDelete);
 
-router.get('/myaccount',verifyToken, customerController.getAccount);
-
-router.put('/myaccount/update/:id',verifyToken, customerController.customerUpdate);
-
-router.delete('/myaccount/delete',verifyToken,customerController.customerDelete);
 
 module.exports = router;
